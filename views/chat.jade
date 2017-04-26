@@ -1,0 +1,11 @@
+extends layout
+
+block content
+	div(class="chatContainer")
+		h2 Welcome to ChatApp
+		ul("id=messages")
+		- each message in messages
+			li #{message.username} on #{message.date} wrote: #{message.text}
+		form(action="")
+			input(id="messageInput")
+			button Send
