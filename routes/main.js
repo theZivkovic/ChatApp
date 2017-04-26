@@ -5,7 +5,8 @@ let router = express.Router();
 let ChatManager = require("../modules/chatManager");
 
 router.get("/", function(req, res, next) {
-  res.render('chat', { messages: ChatManager.getMessages()});
+  console.dir(ChatManager.getAllMessages());
+  res.render('chat', { messages: ChatManager.getAllMessages()});
 });
 
 module.exports = router;

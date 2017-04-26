@@ -7,7 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('chatapp:server');
 var http = require('http');
-
+var IoHandler = require('../modules/ioHandler');
 /**
  * Get port from environment and store in Express.
  */
@@ -20,13 +20,8 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+var ioHandler = new IoHandler(server);
 
-var io = require('socket.io')(server);
-
-io.on("connection", function(socket){
-  console.dir(socket);
-  console.log("a user connected");
-});
 
 /**
  * Listen on provided port, on all network interfaces.
