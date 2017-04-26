@@ -2,18 +2,80 @@
 
 let socket = io.connect('http://localhost:3000');
 
+$(document).ready(() => {
 
-function onSendClicked() {
+	let currentColor = "#000000";
 
-	var id = socket.io.engine.id;
-	console.log(id);
-	
-	let messageText = document.querySelector("#messageInput").value;
-	socket.emit("chat-message", messageText);
-}
+	let validateUsername = (username) => {
+		return username.length > 0;
+	}
+
+	let createChatBox = () => {
+		$.ajax({
+			url: "/chat/messages-pretty",
+			success: (data) => {
+
+				$("#chatContainer").append('<ul id="messages"></ul>');
+				data.forEach((messagePretty) => {
+					let messageHTML = `<li>${messagePretty}</li>`;
+					$("#chatContainer > ul").append(messageHTML);
+				});
+
+				$("#chatContainer").append('<input type="text" id="messageInput" placeholder="message"/>');
+
+				let sendButton = $('<input type="button" value="Send"/>');
+				sendButton.click(() => {
+					let messageText = $("#messageInput").val();
+					socket.emit("chat-message", {
+						messageText: messageText,
+						messageColor: currentColor
+					});
+				});
+
+				let leaveButton = $('<input type="button" value="Leave"/>');
+				leaveButton.click(() => {
+					socket.emit("user-left");
+				});
+
+				let colorPicker = $('<input type="text" value="Change color"/>');
+
+				colorPicker.colorPicker({
+					renderCallback: function($elm, toggled){
+						currentColor = "#" + this.color.colors.HEX;
+					}
+				});
+
+				$("#chatContainer").append(sendButton);
+				$("#chatContainer").append(leaveButton);
+				$("#chatContainer").append(colorPicker);
+			},
+			error: (err) => {
+				console.log(err);
+			}
+		})
+	}
+
+	$("#joinButton").click(() => {
+		let username = $("#username").val();
+		if (validateUsername(username)) {
+			socket.emit("user-joined", username);
+			$("#loginBox").fadeOut();
+			createChatBox();
+		}
+	});
+
+	$("#username").on("input", () => {
+		let username = $("#username").val();
+		if (validateUsername(username))
+			$("#joinButton").attr("disabled", false);
+		else
+			$("#joinButton").attr("disabled", true);
+	});
+});
+
 
 socket.on("message-added", function(message){
-	let newMessage = document.createElement("li");
-	newMessage.innerHTML = message;
-	document.querySelector("#messages").appendChild(newMessage);
+	let newMessage = $(`<li>${message}</li>`);
+	$("#messages").append(newMessage);
 });
+

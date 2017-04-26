@@ -21,6 +21,13 @@ let getAllMessages = () => {
 	return messages;
 }
 
+let getAllMessagesPretty = () => {
+	return messages.map((messageObj) => {
+		return messageObj.pretty();
+	});
+}
+
 module.exports.addMessage = addMessage;
 module.exports.removeMessage = removeMessage;
 module.exports.getAllMessages = getAllMessages;
+module.exports.getAllMessagesPretty = getAllMessagesPretty;

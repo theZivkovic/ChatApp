@@ -14,5 +14,9 @@
     "public/libs",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "tinyColorPicker": "^1.1.1"
+  }
 }

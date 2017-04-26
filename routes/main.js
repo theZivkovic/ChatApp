@@ -2,11 +2,19 @@
 
 let express = require("express");
 let router = express.Router();
-let ChatManager = require("../modules/chatManager");
+let MessagesManager = require("../modules/messagesManager");
+let UserManager = require("../modules/userManager");
 
-router.get("/", function(req, res, next) {
-  console.dir(ChatManager.getAllMessages());
-  res.render('chat', { messages: ChatManager.getAllMessages()});
+router.get("/chat", function(req, res, next) {
+  res.render('chat');
+});
+
+router.get("/chat/messages", function(request, response, next){
+	response.json(MessagesManager.getAllMessages());
+});
+
+router.get("/chat/messages-pretty", function(request, response, next){
+	response.json(MessagesManager.getAllMessagesPretty());
 });
 
 module.exports = router;
