@@ -34,14 +34,16 @@ $(document).ready(() => {
 
 				let leaveButton = $('<input type="button" value="Leave"/>');
 				leaveButton.click(() => {
-					socket.emit("user-left");
+					window.location = "/chat";
 				});
 
 				let colorPicker = $('<input type="text" value="Change color"/>');
 
 				colorPicker.colorPicker({
+					colorBG: "#000",
 					renderCallback: function($elm, toggled){
 						currentColor = "#" + this.color.colors.HEX;
+						socket.emit("user-color-changed", currentColor);
 					}
 				});
 
@@ -78,4 +80,3 @@ socket.on("message-added", function(message){
 	let newMessage = $(`<li>${message}</li>`);
 	$("#messages").append(newMessage);
 });
-

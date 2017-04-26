@@ -20,21 +20,27 @@ class IoHandler {
 		  console.log("a user connected: " + client.id );
 
 		  client.on("user-joined", function(username) {
-		  	UserManager.addUser(client.id, username);
-		  	UserManager.printUsers();
+		  	if (UserManager.getUserByUsername(username) == null){
+	  			UserManager.addUser(client.id, username);
+	  			UserManager.printUsers();
+		  	}
+		  	else
+		  	{
+		  		UserManager.changeUserSessionID(username, client.id);
+		  	}
 		  });
 
-		  client.on("user-left", function() {
-		  	UserManager.removeUser(client.id);
+		  client.on("user-color-changed", function(newColor){
+		  	let currentUser = UserManager.getUserBySessionID(client.id);
+		  	currentUser.changeColor(newColor);
 		  	UserManager.printUsers();
 		  });
 
 		  client.on("chat-message", function(data){
-		  	UserManager.printUsers();
 		  	let currentUser = UserManager.getUserBySessionID(client.id);
-		    let messageObj = new Message(currentUser.username, data.messageText, data.messageColor);
-		    io.emit("message-added", messageObj.pretty());
+		    let messageObj = new Message(currentUser.getUsername(), data.messageText, data.messageColor);
 		    MessagesManager.addMessage(messageObj);
+		    io.emit("message-added", messageObj.pretty());
 		  });
 		});
 	}

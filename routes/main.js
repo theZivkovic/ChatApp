@@ -17,4 +17,9 @@ router.get("/chat/messages-pretty", function(request, response, next){
 	response.json(MessagesManager.getAllMessagesPretty());
 });
 
+router.get("/chat/user/:username", function(request, response, next){
+	let currentUser = UserManager.getUserByUsername(request.params.username);
+	response.json(currentUser);
+});
+
 module.exports = router;
