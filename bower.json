@@ -1,0 +1,22 @@
+{
+  "name": "chatapp",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Dejan <dejan.zivkovic90@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/theZivkovic/ChatApp",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "socket.io-client": "^1.7.2"
+  }
+}

@@ -1,0 +1,27 @@
+"use strict";
+
+let express = require('express');
+let MessagesManager = require('../modules/MessagesManager');
+let router = express.Router();
+
+router.get('/', (request, response, next) => {
+	response.redirect('/login');
+});
+
+router.get('/login', (request, response, next) => {
+	if (request.session && request.session.username)
+		response.redirect("/chat");
+	else
+  		response.render('login.jade');
+});
+
+router.get('/chat', (request, response, next) => {
+	if (!request.session || !request.session.username)
+		response.redirect("/login");
+
+	console.log(`CURRENT USER: ${request.session.username}`);
+	response.render('chat.jade', { username: request.session.username,
+								   messages: MessagesManager.getAllMessagesPretty() });
+});
+
+module.exports = router;
