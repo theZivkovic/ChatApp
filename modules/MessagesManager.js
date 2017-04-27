@@ -8,8 +8,10 @@ let addMessage = (messageObj) => {
 	messages.push(messageObj);
 }
 
-let removeMessage = (messageObj) => {
-	// to-do
+let removeMessage = (messageID) => {
+	messages = messages.filter((messageObj) => {
+		return messageObj.messageID != messageID;
+	});
 }
 
 let getAllMessagesPretty = () => {

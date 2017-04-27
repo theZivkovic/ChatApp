@@ -2,6 +2,7 @@
 
 let express = require('express');
 let MessagesManager = require('../modules/MessagesManager');
+let UserManager = require('../modules/UserManager');
 let router = express.Router();
 
 router.get('/', (request, response, next) => {
@@ -21,7 +22,8 @@ router.get('/chat', (request, response, next) => {
 
 	console.log(`CURRENT USER: ${request.session.username}`);
 	response.render('chat.jade', { username: request.session.username,
-								   messages: MessagesManager.getAllMessagesPretty() });
+								   messages: MessagesManager.getAllMessagesPretty(),
+								   userColor: UserManager.getUserColor(request.session.username) });
 });
 
 module.exports = router;
