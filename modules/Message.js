@@ -17,12 +17,30 @@ class Message {
 		return this._messageID;
 	}
 
-	prettify() {
-		return `<input type="button" name="delete-${this._messageID}" value="X">
-				<span style="color: ${this._color}">
+	get username(){
+		return this._username;
+	}
+
+	get date(){
+		return this._date;
+	}
+
+	canBeDeleted() {
+		return Date.now() - this._date <= 15 * 60 * 1000;
+	}
+
+	prettify(shouldDisplayDeleteBtn) {
+
+		let result = '';
+		
+		if (shouldDisplayDeleteBtn)
+			result += `<input type="button" name="delete-${this._messageID}" value="X">`;
+
+		result += `<span style="color: ${this._color}">
 					<b>${this._username} on ${this._date} wrote:</b>
 					${this._messageText}
-				</span>`;
+				   </span>`;
+		return result;
 	}
 
 

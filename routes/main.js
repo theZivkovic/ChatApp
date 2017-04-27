@@ -22,7 +22,7 @@ router.get('/chat', (request, response, next) => {
 
 	console.log(`CURRENT USER: ${request.session.username}`);
 	response.render('chat.jade', { username: request.session.username,
-								   messages: MessagesManager.getAllMessagesPretty(),
+								   messages: MessagesManager.getAllMessagesPrettyForUser(request.session.username),
 								   userColor: UserManager.getUserColor(request.session.username) });
 });
 

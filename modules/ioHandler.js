@@ -13,6 +13,7 @@ class IoHandler {
 	}
 
 	init() {
+
 		this.io.on('connection', (socket) => {
 		    
 		    socket.on('login', (userData) => {
@@ -25,7 +26,7 @@ class IoHandler {
 
 		    socket.on('logout', () => {
 		        if (socket.handshake.session.username) {
-		        	UserManager.removeUser(socket.handshake.session.username);
+		        	//UserManager.removeUser(socket.handshake.session.username);
 		            delete socket.handshake.session.username;
 		            socket.handshake.session.save();
 		        }
@@ -36,8 +37,8 @@ class IoHandler {
 		    		let currentColor = UserManager.getUserColor(socket.handshake.session.username);
 		    		let newMessage = new Message(socket.handshake.session.username, messageText, currentColor);
 		    		MessagesManager.addMessage(newMessage);
-		    		console.log(MessagesManager.getAllMessagesPretty());
-		    		this.io.emit('broadcasted-message', newMessage.prettify());
+		    		console.log(MessagesManager.getAllMessagesPrettyForUser(socket.handshake.session.username));
+		    		this.io.emit('broadcasted-message', newMessage.prettify(socket.handshake.session.username));
 		    	}
 		    });
 
@@ -47,8 +48,18 @@ class IoHandler {
 		    });
 
 		    socket.on('delete-message', (messageID) => {
-		    	MessagesManager.removeMessage(messageID);
-		    	this.io.emit('broadcasted-delete-message', messageID);
+
+		    	try 
+		    	{
+		    		MessagesManager.removeMessage(socket.handshake.session.username, messageID);
+		    		this.io.emit('broadcasted-delete-message', messageID);
+		    	}
+		    	catch(e)
+		    	{
+		    		console.log(e);
+		    		// to do
+		    	}
+		    	
 		    });
 		});
 	}
