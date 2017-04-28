@@ -37,6 +37,7 @@ let getAllUsers = () => {
 	return users;
 }
 
+module.exports.getUser = getUser;
 module.exports.addUser = addUser;
 module.exports.removeUser = removeUser;
 module.exports.setUserColor = setUserColor;

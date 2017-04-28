@@ -55,6 +55,10 @@ body {
     color: #7C7C7B;
 }
 
+.loginBox #errorMessage {
+	color: red;
+}
+
 /******** CHAT BOX *********/
 
 .chatBox {
