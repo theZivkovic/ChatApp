@@ -26,19 +26,20 @@ class IoHandler {
 
 		    socket.on('logout', () => {
 		        if (socket.handshake.session.username) {
-		        	//UserManager.removeUser(socket.handshake.session.username);
 		            delete socket.handshake.session.username;
 		            socket.handshake.session.save();
 		        }
 		    });
 
 		    socket.on('chat-message', (messageText) => {
-		    	if (socket.handshake.session.username){
+		    	if (socket.handshake.session.username) {
 		    		let currentColor = UserManager.getUserColor(socket.handshake.session.username);
 		    		let newMessage = new Message(socket.handshake.session.username, messageText, currentColor);
-		    		MessagesManager.addMessage(newMessage);
-		    		console.log(MessagesManager.getAllMessagesPrettyForUser(socket.handshake.session.username));
-		    		this.io.emit('broadcasted-message', newMessage.prettify(socket.handshake.session.username));
+		    		if (newMessage.validate()) {
+		    			MessagesManager.addMessage(newMessage);
+		    			this.io.emit('broadcasted-message', newMessage.prettify(socket.handshake.session.username));
+		    		}
+		    		
 		    	}
 		    });
 

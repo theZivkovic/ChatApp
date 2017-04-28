@@ -59,9 +59,9 @@ body {
 
 .chatBox {
 	position: absolute;
-	width: 400px;
+	width: 500px;
 	right: 0;
-	height: 400px;
+	height: 600px;
 	bottom: 0;
 	background-color: #558C89;
 }
@@ -93,12 +93,15 @@ body {
 }
 
 .chatBox #messageList {
-	max-height:200px;
-	height: 200px;
+	max-height:400px;
+	height: 400px;
     overflow-y:scroll;
 	list-style-type: none;
 	background-color: white;
 	display: block;
+    margin-right: 0px;
+    padding-left: 10px;
+    padding-right: 0px;
 }
 
 .chatBox .messageSenderBar input[type="text"]{

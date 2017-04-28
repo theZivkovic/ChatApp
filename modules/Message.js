@@ -1,5 +1,7 @@
 'use strict';
 
+let dateFormat = require('dateformat');
+
 let nextMessageID = 0;
 
 class Message {
@@ -32,19 +34,20 @@ class Message {
 	prettify(shouldDisplayDeleteBtn) {
 
 		let result = '';
-		
+		let datePretty = dateFormat(this._date, "mmmm dS, yyyy, h:MM:ss TT");
+
 		if (shouldDisplayDeleteBtn)
 			result += `<input type="button" name="delete-${this._messageID}" value="X">`;
 
 		result += `<span style="color: ${this._color}">
-					<b>${this._username} on ${this._date} wrote:</b>
+					<b>${this._username} on ${datePretty} wrote:</b>
 					${this._messageText}
 				   </span>`;
 		return result;
 	}
 
 	validate() {
-		return true;
+		return /^[0-9a-zA-z.,?!:"'\s]+$/.test(this._messageText);
 	}
 }
 
