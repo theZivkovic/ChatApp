@@ -6,7 +6,9 @@ block content
 		input(type="button", value="Join", id="joinButton")
 		p(id="errorMessage")
 	div(class="activeUsers")
-		ul(align="center") Current users: 
+		ul(align="center") 
+			if allUsers.length > 0
+				i Current users: 
 			- each user in allUsers
 				li #{user.username} &nbsp
 					if user.active == true
