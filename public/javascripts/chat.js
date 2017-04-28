@@ -41,12 +41,13 @@
 		resetListeners();		
 		
 		socket.on('broadcasted-message', (fullMessage) => {
-			$("#messageList").append(`<li>${fullMessage}</li>`);
+			console.log(fullMessage);
+			$("#messageList").append(`${fullMessage}`);
 			resetListeners();
 		});
 
 		socket.on('broadcasted-delete-message', (messageID) => {
-			let liToDelete = $($(`#messageList input[name='delete-${messageID}`)[0]).parent()[0];
+			let liToDelete = $(`#messageList li[id="${messageID}"]`)[0];
 			liToDelete.remove();
 		});
 	});

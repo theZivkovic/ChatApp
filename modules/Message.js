@@ -33,7 +33,7 @@ class Message {
 
 	prettify(shouldDisplayDeleteBtn) {
 
-		let result = '';
+		let result = `<li id=${this._messageID}>`;
 		let datePretty = dateFormat(this._date, "mmmm dS, yyyy, h:MM:ss TT");
 
 		if (shouldDisplayDeleteBtn)
@@ -43,6 +43,8 @@ class Message {
 					<b>${this._username} on ${datePretty} wrote:</b>
 					${this._messageText}
 				   </span>`;
+
+		result += '</li>'
 		return result;
 	}
 
