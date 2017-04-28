@@ -38,7 +38,7 @@ class User {
 
 		this._timeoutHandle = setTimeout(() => {
 			this._onLogoutCallback(this);
-		}, 10000);
+		}, 5 * 60 * 1000);
 	}
 
 	clearIdlenessTimer(){

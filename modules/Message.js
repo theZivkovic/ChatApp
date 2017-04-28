@@ -36,7 +36,7 @@ class Message {
 		let result = `<li id=${this._messageID}>`;
 		let datePretty = dateFormat(this._date, "mmmm dS, yyyy, h:MM:ss TT");
 
-		if (shouldDisplayDeleteBtn)
+		if (shouldDisplayDeleteBtn && this.canBeDeleted())
 			result += `<input type="button" name="delete-${this._messageID}" value="X">`;
 
 		result += `<span style="color: ${this._color}">
