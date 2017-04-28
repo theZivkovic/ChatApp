@@ -5,4 +5,14 @@ block content
 		input(type="text", placeholder="username", id="username")
 		input(type="button", value="Join", id="joinButton")
 		p(id="errorMessage")
+	div(class="activeUsers")
+		ul(align="center") Current users: 
+			- each user in allUsers
+				li #{user.username} &nbsp
+					if user.active == true
+						svg(height="20",width="20")
+							circle(cx="10",cy="10",r="8",stroke="#{user.color}",stroke-width="2",fill="#{user.color}")
+					else
+						svg(height="20",width="20")
+							circle(cx="10",cy="10",r="8",stroke="#{user.color}",stroke-width="2",fill="none")
 	script(src="javascripts/login.js")

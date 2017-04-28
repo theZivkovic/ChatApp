@@ -59,6 +59,21 @@ body {
 	color: red;
 }
 
+/******** ACTIVE USERS ********/
+
+.activeUsers {
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+	background-color: #558C89;
+	max-width: 400px;
+	margin: 0 auto;
+}
+
+.activeUsers ul {
+	list-style-type: none;
+}
+
 /******** CHAT BOX *********/
 
 .chatBox {

@@ -13,17 +13,19 @@ router.get('/login', (request, response, next) => {
 	if (request.session && request.session.username)
 		response.redirect("/chat");
 	else
-  		response.render('login.jade');
+  		response.render('login.jade', { allUsers: UserManager.getAllUsers() });
 });
 
 router.get('/chat', (request, response, next) => {
 	if (!request.session || !request.session.username)
 		response.redirect("/login");
 
-	console.log(`CURRENT USER: ${request.session.username}`);
-	response.render('chat.jade', { username: request.session.username,
-								   messages: MessagesManager.getAllMessagesPrettyForUser(request.session.username),
-								   userColor: UserManager.getUserColor(request.session.username) });
+	response.render('chat.jade', { 
+		username: request.session.username,
+		messages: MessagesManager.getAllMessagesPrettyForUser(request.session.username),
+		userColor: UserManager.getUserColor(request.session.username) 
+	});
+
 });
 
 module.exports = router;
