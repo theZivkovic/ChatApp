@@ -26,17 +26,29 @@ class IoHandler {
 		    	}
 
 		        if (!user) {
-		        	user = new User(userData.username);
+		        	user = new User(userData.username, "#000", (userToLogout) => {
+		        		if (userToLogout.username == socket.handshake.session.username){
+		        			console.log(userToLogout);
+		        			userToLogout.clearIdlenessTimer();
+			        		userToLogout.active = false;
+			        		delete socket.handshake.session.username;
+			        		socket.handshake.session.save();
+			        		//socket.emit('redirect', '/login');
+			        		//this.io.emit('redirect', '/login');
+		        		}
+		        	});
+
 		        	UserManager.addUser(user);
 		        }
 		        else 
+		        {
 		        	user.active = true;
+		        	user.resetIdlenessTimer();
+		        }
 		        
 		        socket.handshake.session.username = userData.username;
 		        socket.handshake.session.save();
 		       	socket.emit('redirect', '/chat');
-
-		       	console.log("LOGIN:::", UserManager.getAllUsers());
 		    });
 
 		    socket.on('logout', () => {
@@ -47,8 +59,6 @@ class IoHandler {
 
 		            delete socket.handshake.session.username;
 		            socket.handshake.session.save();
-
-		            console.log("LOGOUT:::", UserManager.getAllUsers());
 		        }
 		    });
 
@@ -59,6 +69,7 @@ class IoHandler {
 		    		let newMessage = new Message(currentUsername, messageText, currentColor);
 		    		if (newMessage.validate()){
 		    			MessagesManager.addMessage(newMessage);
+		    			UserManager.getUser(currentUsername).resetIdlenessTimer();
 		    			socket.broadcast.emit('broadcasted-message', newMessage.prettify(false));
 		    			socket.emit('broadcasted-message', newMessage.prettify(true));
 		    		}
@@ -67,7 +78,6 @@ class IoHandler {
 
 		    socket.on('color-changed', (newColor) => {
 		    	UserManager.setUserColor(socket.handshake.session.username, newColor);
-		    	console.log(UserManager.getAllUsers());
 		    });
 
 		    socket.on('delete-message', (messageID) => {
@@ -77,10 +87,9 @@ class IoHandler {
 		    		MessagesManager.removeMessage(socket.handshake.session.username, messageID);
 		    		this.io.emit('broadcasted-delete-message', messageID);
 		    	}
-		    	catch(e)
+		    	catch(deletingError)
 		    	{
-		    		console.log(e);
-		    		// to do
+		    		console.log(deletingError);
 		    	}
 		    	
 		    });

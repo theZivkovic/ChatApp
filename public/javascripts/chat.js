@@ -41,7 +41,6 @@
 		resetListeners();		
 		
 		socket.on('broadcasted-message', (fullMessage) => {
-			console.log(fullMessage);
 			$("#messageList").append(`${fullMessage}`);
 			resetListeners();
 		});
@@ -50,5 +49,10 @@
 			let liToDelete = $(`#messageList li[id="${messageID}"]`)[0];
 			liToDelete.remove();
 		});
+
+		socket.on('redirect', (where) => {
+			window.location = where;
+		});
 	});
+	
 }());

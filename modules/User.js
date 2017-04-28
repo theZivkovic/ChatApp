@@ -2,10 +2,13 @@
 
 class User {
 
-	constructor(username, color) {
+	constructor(username, color, onLogoutCallback) {
 		this._username = username;
-		this._color = color ||  '#000';
+		this._color = color;
 		this._active = true;
+		this._onLogoutCallback = onLogoutCallback;
+		this.resetIdlenessTimer();
+		
 	}
 
 	get color() {
@@ -26,6 +29,20 @@ class User {
 
 	set active(value){
 		this._active = value;
+	}
+
+	resetIdlenessTimer(){
+		
+		if (this._timeoutHandle)
+			this.clearIdlenessTimer();
+
+		this._timeoutHandle = setTimeout(() => {
+			this._onLogoutCallback(this);
+		}, 10000);
+	}
+
+	clearIdlenessTimer(){
+		clearTimeout(this._timeoutHandle);
 	}
 }
 
