@@ -18,6 +18,7 @@
   "dependencies": {
     "jquery": "^3.2.1",
     "socket.io-client": "^1.7.2",
-    "tinyColorPicker": "^1.1.1"
+    "tinyColorPicker": "^1.1.1",
+    "normalize-css": "^6.0.0"
   }
 }

@@ -1,13 +1,18 @@
 extends layout
 
 block content
-	h1 Welcome #{username}!
-		input(type="hidden", id="colorSourceElement" value="#{userColor}")
-		input(type="button", id="logoutButton", value="Leave")
-		input(type="button", id="changeColorButton", value="Change color")
-	ul(id="messageList")
-		- each message in messages
-			li !{message}
-	input(type="text", id="message", placeholder="Write something")
-	input(type="button", id="sendMessageButton", value="Send")
-	script(src="javascripts/chat.js")
+	div(class="chatBox")
+		div(class="header")
+			h2 Welcome 
+				i= username + "!"
+		div(class="toolbar")
+			input(type="hidden", id="colorSourceElement" value="#{userColor}")
+			input(type="button", id="logoutButton", value="Leave")
+			input(type="button", id="changeColorButton", value="Change color")
+		ul(id="messageList")
+			- each message in messages
+				li !{message}
+		div(class="messageSenderBar")
+			input(type="text", id="message", placeholder="Write something")
+			input(type="button", id="sendMessageButton", value="Send")
+		script(src="javascripts/chat.js")

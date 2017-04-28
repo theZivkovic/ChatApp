@@ -43,7 +43,9 @@ class Message {
 		return result;
 	}
 
-
+	validate() {
+		return true;
+	}
 }
 
 module.exports = Message;

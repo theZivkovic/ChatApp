@@ -1,0 +1,115 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:300);
+
+body {
+	background-color: #74AFAD;
+}
+
+/******** LOGIN BOX *********/
+
+.loginBox {
+	width: 400px;
+	height: 125px;
+	background-color: #ECECEA;
+	max-width: 360px;
+    margin: 200px auto 100px;
+    padding: 45px;
+    text-align: center;
+
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
+.loginBox input[type="text"] {
+	margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    width: 100%;
+    outline: 0;
+    border: 0;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+}
+
+.loginBox input[type="button"] {
+	margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    width: 100%;
+    background-color: #D9853B;
+    color: white;
+    outline: 0;
+    border: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+.loginBox input[type="button"]:hover {
+    background-color: #E5944E;
+    cursor: pointer;
+}
+
+.loginBox input[type="button"]:disabled {
+    background-color: #AAA9A7;
+    color: #7C7C7B;
+}
+
+/******** CHAT BOX *********/
+
+.chatBox {
+	position: absolute;
+	width: 400px;
+	right: 0;
+	height: 400px;
+	bottom: 0;
+	background-color: #558C89;
+}
+
+.chatBox .header {
+	width: 100%;
+	background-color: black;
+	color: white;
+	padding: 10px 0;
+	text-indent: 20px;
+	font-family: "Roboto", sans-serif;
+}
+
+.chatBox .toolbar input {
+	display: block;
+	float: left;
+	padding: 10px 0;
+	width: 50%;
+}
+
+.chatBox input[type="button"]{
+	border: 0;
+}
+
+.chatBox input[type="button"]:hover {
+	color: white;
+	background-color: #D9853B;
+	cursor: pointer;
+}
+
+.chatBox #messageList {
+	max-height:200px;
+	height: 200px;
+    overflow-y:scroll;
+	list-style-type: none;
+	background-color: white;
+	display: block;
+}
+
+.chatBox .messageSenderBar input[type="text"]{
+	width: 70%;
+	padding: 10px;
+	display: block;
+	float: left;
+	margin: 0 0 0 10px;
+}
+
+.chatBox .messageSenderBar input[type="button"]{
+	width: 20%;
+	padding: 10px 0;
+}
